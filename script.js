@@ -4,8 +4,8 @@ import { Marked } from "https://cdn.jsdelivr.net/npm/marked@13/+esm";
 import { read, utils } from "https://cdn.jsdelivr.net/npm/xlsx/+esm";
 import { asyncSSE } from "https://cdn.jsdelivr.net/npm/asyncsse@1";
 
-let llmContent,
-  content = "";
+let llmContent;
+let content = "";
 
 let instructions = "";
 const demosDiv = document.getElementById("demos");
@@ -17,7 +17,7 @@ if (!token) {
   render(html`<a class="btn btn-primary" href="${url}">Log into LLM Foundry</a></p>`, document.querySelector("#login"));
 }
 
-//Fetch Demos
+// Fetch Demos
 let demosArray = [];
 let indexVal = -1;
 
@@ -50,8 +50,8 @@ const fetchAndRenderDemos = async () => {
 
 const qualityReport = () => html`
   <div class="mx-auto w-50">
-  <form id="recommendations-form">
-  <h1 class="display-4 my-4 border-bottom border-dark pb-2">Generated Report</h1>
+    <form id="recommendations-form">
+      <h1 class="display-4 my-4 border-bottom border-dark pb-2">Generated Report</h1>
       <div class="mb-3">
         <label for="user-prompt" class="form-label">Instructions</label>
         <input
@@ -77,8 +77,7 @@ const sampleUploadBox = () => html`
         <div class="demo card">
           <label class="card-body">
             <h5 class="card-title">Sample Report</h5>
-            <p class="card-text">
-Leverage pre-existing data to produce the report.</p>
+            <p class="card-text">Leverage pre-existing data to produce the report.</p>
             <div class="d-flex align-items-center">
             <button id="sample-button" type="submit" class="btn btn-primary mx-2"><i class="bi bi-gear"></i> Generate</button>
             <a class="btn btn-primary" href="${demosArray[indexVal].src}"><i class="bi bi-download"></i> Download XLSX</a>
@@ -133,21 +132,21 @@ document.querySelector("#sample-upload").addEventListener("click", async (event)
 });
 
 document.querySelector("#sample-upload").addEventListener("change", (event) => {
-  const $uploadFileInput = event.target; // This should be the <input type="file"> element.
+  const $uploadFileInput = event.target;
   if ($uploadFileInput && $uploadFileInput.files.length > 0) {
     const file = $uploadFileInput.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = (event) => {
         const workbook = XLSX.read(event.target.result, { cellDates: true });
-        renderWorkbook(workbook); // Your custom function to handle the workbook
+        renderWorkbook(workbook);
       };
       reader.readAsArrayBuffer(file);
     }
   }
 });
 
-//This is the function which processes data from excel sheet
+// This is the function which processes data from excel sheet
 async function renderWorkbook(workbook) {
   const oldOutput = document.querySelector("#output");
   oldOutput.insertAdjacentHTML("afterend", '<div id="output"></div>');
@@ -202,8 +201,7 @@ document.querySelector("body").addEventListener("submit", async (event) => {
 });
 
 document.addEventListener("click", (e) => {
-  if (e.target.id === "download-button") {
-    window.print();  }
+  if (e.target.id === "download-button") window.print();
 });
 
 function notify(message) {
